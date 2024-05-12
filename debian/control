@@ -7,13 +7,14 @@ Build-Depends:
  debhelper-compat (= 13),
  autotools-dev,
  dh-autoreconf,
+ libsystemd-dev,
 Standards-Version: 4.6.2
 Homepage: https://github.com/Drive-Trust-Alliance/sedutil
 Vcs-Browser: https://gitlab.com/kaisenlinux/packages/sedutil
 Vcs-Git: https://gitlab.com/kaisenlinux/packages/sedutil.git
 
 Package: sedutil
-Architecture: amd64 i386
+Architecture: amd64
 Depends:
  ${shlibs:Depends},
  ${misc:Depends},

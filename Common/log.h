@@ -42,13 +42,29 @@
 #include <string>
 #include <stdio.h>
 #include <stdlib.h>
-#include "DtaOptions.h"
+
+#define NOLOGGING 0
+
+/** Output modes */
+typedef enum _sedutiloutput {
+    sedutilNormal,
+    sedutilReadable,
+    sedutilJSON
+} sedutiloutput;
+
+#define DEFAULT_OUTPUT_FORMAT sedutilReadable
+
+/* Default */
+extern sedutiloutput outputFormat;
+
 
 inline std::string NowTime();
 
 enum TLogLevel {
     E, W, I, D, D1, D2, D3, D4
 };
+extern TLogLevel& CLogLevel;
+extern TLogLevel& RCLogLevel;
 
 template <typename T>
 class Log {
@@ -162,8 +178,11 @@ private:
     sedutiloutput outputformat;
 };
 
+
 template <typename T>
 RLog<T>::RLog() {
+    curlevel = RCLogLevel;
+    outputformat = outputFormat;
 }
 
 template <typename T>
@@ -308,18 +327,26 @@ class FILELOG_DECLSPEC RCLog : public RLog<Output2FILE> {
 	else CLog().Get(level)
 #endif
 
+#if 0
 #define IFLOG(level) \
-	if (level > CLOG_MAX_LEVEL) ;\
-	else if (level > CLog::Level() || !Output2FILE::Stream()) ; \
-	else
+    if (level > CLOG_MAX_LEVEL) ;\
+    else if (level > CLog::Level() || !Output2FILE::Stream()) ; \
+    else
+#endif
 
-extern sedutiloutput outputFormat;
+
+
+// This version allows an else part
+#define IFLOG(level) \
+    if (level > CLOG_MAX_LEVEL) ;\
+    else if (!(level > CLogLevel || !Output2FILE::Stream()))
 
 #define	LOGX(level) \
 	if (level > CLOG_MAX_LEVEL) ;\
-	else if (level > RCLog::Level() || !Output2FILE::Stream()) ; \
+	else if (level > RCLogLevel || !Output2FILE::Stream()) ; \
 	else RCLog().Get(level, outputFormat)
 #define	LOG LOGX
+
 
 #if defined(WIN32) || defined(_WIN32) || defined(__WIN32__)
 
@@ -334,8 +361,8 @@ inline std::string NowTime() {
         return "Error in NowTime()";
 
     char result[100] = {0};
-    static DWORD first = GetTickCount();
-    sprintf_s(result, 99, "%s.%03ld", buffer, (long) (GetTickCount() - first) % 1000);
+    static DWORD first = (DWORD)GetTickCount64();
+    sprintf_s(result, 99, "%s.%03ld", buffer, (long) ((DWORD)(GetTickCount64()) - first) % 1000);
     return result;
 }
 
@@ -347,7 +374,7 @@ inline std::string NowTime() {
     char buffer[11];
     time_t t;
     time(&t);
-    tm r = {0};
+    tm r = {0,0,0,0,0,0,0,0,0,0,0};
     strftime(buffer, sizeof (buffer), "%X", localtime_r(&t, &r));
     struct timeval tv;
     gettimeofday(&tv, 0);
@@ -357,5 +384,9 @@ inline std::string NowTime() {
 }
 
 #endif //WIN32
+
+
+extern void turnOffLogging(void);
+extern void SetLoggingLevel(int loggingLevel);
 
 #endif //__LOG_H__
