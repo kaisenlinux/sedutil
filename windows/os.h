@@ -31,6 +31,7 @@ along with sedutil.If not, see <http://www.gnu.org/licenses/>.
 #pragma warning(disable: 4127) //C4127: conditional expression is constant
 #include "log.h"
 #include <malloc.h>
+#include <winsock.h>
 
 /** OS specific implementation of the "safe" snprintf function */
 #define SNPRINTF sprintf_s
@@ -59,12 +60,11 @@ static inline void free_aligned_MIN_BUFFER_LENGTH_buffer (void * aligned_buffer)
   _aligned_free(aligned_buffer);
 }
 
-typedef HANDLE OSDEVICEHANDLE;
-
-
 /** OS specific command to Wait for specified number of milliseconds
  * @param milliseconds  number of milliseconds to wait
  */
 static inline void osmsSleep(uint32_t milliseconds) {
-   (void)Sleep((DWORD)milliseconds);
+   (void)Sleep(static_cast<DWORD>(milliseconds));
 }
+
+typedef HANDLE OSDEVICEHANDLE;

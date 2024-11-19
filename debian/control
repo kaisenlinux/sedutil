@@ -8,6 +8,7 @@ Build-Depends:
  autotools-dev,
  dh-autoreconf,
  libsystemd-dev,
+ libnvme-dev,
 Standards-Version: 4.6.2
 Homepage: https://github.com/Drive-Trust-Alliance/sedutil
 Vcs-Browser: https://gitlab.com/kaisenlinux/packages/sedutil

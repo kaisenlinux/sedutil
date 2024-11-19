@@ -18,8 +18,8 @@
 
    * C:E********************************************************************** */
 #pragma once
-#include <vector>
 #include <string>
+#include <vector>
 #include "DtaStructures.h"
 #include "DtaLexicon.h"
 

@@ -1,3 +1,10 @@
+sedutil (1.49.4-1kaisen) kaisen-packages; urgency=medium
+
+  * Import the 1.49.4 release
+  * Add the libnvme-dev package as package required to build
+
+ -- Kevin Chevreuil - Kaisen <kaisen@kaisenlinux.org>  Tue, 19 Nov 2024 01:30:47 +0200
+
 sedutil (1.49.1-1kaisen) kaisen-packages; urgency=medium
 
   * Import the 1.49.1 release

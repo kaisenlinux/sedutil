@@ -32,32 +32,6 @@
 #include "ATAStructures.h"
 #include "InterfaceDeviceID.h"
 
-/** Response returned by ATA Identify */
-typedef struct _IDENTIFY_RESPONSE {
-  uint8_t ignore1;             //word 0
-  uint8_t ignore2 : 7;         //word 0
-  uint8_t devType : 1;         //word 0
-
-  uint8_t ignore3[18];         //words 1-9
-  uint8_t serialNumber[20];    //words 10-19
-  uint8_t ignore4[6];          //words 20-22
-  uint8_t firmwareRevision[8]; //words 23-26
-  uint8_t modelNum[40];        //words 27-46
-  uint8_t readMultFlags[2];    //word 47
-  uint8_t TCGOptions[2];       //word 48
-  uint8_t ignore5[102];        //words 49-99
-  uint8_t maxLBA[8];           //words 100-103
-  uint8_t ignore6[8];          //words 104-107
-  uint8_t worldWideName[8];    //words 108-111
-  uint8_t ignore7[32];         //words 112-127
-  uint8_t securityStatus[2];   //word 128
-  uint8_t vendorSpecific[62];  //words 129-159
-  uint8_t ignored8[32];        //words 160-175
-  uint8_t mediaSerialNum[60];  //words 176-205
-  uint8_t ignored9[96];        //words 206-254
-  uint8_t integrityWord[2];    //word 255
-} IDENTIFY_RESPONSE;
-
 typedef struct _UASP_INQUIRY_RESPONSE {
     uint8_t fill1[20];
     char ProductSerial[20];
@@ -474,72 +448,79 @@ typedef struct _DTA_Header {
   DTA_DataSubPacketHeader subpkt;
 } DTA_Header;
 
-typedef enum _NVMECOMMAND {
-  NVME_RECV = 0x82,
-  NVME_SEND = 0x81,
-  NVME_IDENTIFY = 0x06,
-} NVMECOMMAND;
-
 // The mnemonics below are a little misleading, but the comments
 // explain what kind of connection is used to deliver the trusted commands
-typedef enum _DTA_DEVICE_TYPE {
+typedef enum DTA_DEVICE_TYPE {
   DEVICE_TYPE_ATA,    // SATA / PATA
   DEVICE_TYPE_SCSI,   // SCSI
   DEVICE_TYPE_NVME,   // NVMe
   DEVICE_TYPE_SAS,    // UAS     -- USB -> SCSI
   DEVICE_TYPE_USB,    // UAS SAT -- USB -> SCSI -> AT pass-through
-  DEVICE_TYPE_SATA = DEVICE_TYPE_USB,  // Just couldn't take it any longer
   DEVICE_TYPE_OTHER,
 } DTA_DEVICE_TYPE;
+
+static inline
+const char * DtaDevTypeName(DTA_DEVICE_TYPE type)
+{
+  switch(type){
+  case DEVICE_TYPE_ATA: return "ATA";
+  case DEVICE_TYPE_SCSI: return "SCSI";
+  case DEVICE_TYPE_NVME: return "NVME";
+  case DEVICE_TYPE_SAS: return "SAS";
+  case DEVICE_TYPE_USB: return "USB";
+  case DEVICE_TYPE_OTHER: return "OTHER";
+  default: return "UNKWN";
+  }
+}
 
 /** structure to store Disk information. */
 typedef struct _DTA_DEVICE_INFO {
   // Information about the presence and values of SSCs and templates
   uint8_t Unknown;
   uint8_t VendorSpecific;
-  uint8_t TPer : 1;
-  uint8_t Locking : 1;
-  uint8_t Geometry : 1;
-  uint8_t Enterprise : 1;
-  uint8_t SingleUser : 1;
-  uint8_t DataStore : 1;
-  uint8_t OPAL20 : 1;
-  uint8_t OPAL10 : 1;
-  uint8_t Properties : 1;
-  uint8_t ANY_OPAL_SSC : 1;
-  uint8_t OPALITE : 1;
-  uint8_t PYRITE : 1;
-  uint8_t PYRITE2 : 1;
-  uint8_t RUBY : 1;
-  uint8_t BlockSID : 1;
-  uint8_t DataRemoval : 1;
-  uint8_t NSLocking : 1;
-  uint8_t FIPS : 1;
+  uint8_t TPer;
+  uint8_t Locking;
+  uint8_t Geometry;
+  uint8_t Enterprise;
+  uint8_t SingleUser;
+  uint8_t DataStore;
+  uint8_t OPAL20;
+  uint8_t OPAL10;
+  uint8_t Properties;
+  uint8_t ANY_OPAL_SSC;
+  uint8_t OPALITE;
+  uint8_t PYRITE;
+  uint8_t PYRITE2;
+  uint8_t RUBY;
+  uint8_t BlockSID;
+  uint8_t DataRemoval;
+  uint8_t NSLocking;
+  uint8_t FIPS;
 
   // values ONLY VALID IF FEATURE ABOVE IS TRUE!!!!!
-  uint8_t TPer_ACKNACK : 1;
-  uint8_t TPer_async : 1;
-  uint8_t TPer_bufferMgt : 1;
-  uint8_t TPer_comIDMgt : 1;
-  uint8_t TPer_streaming : 1;
-  uint8_t TPer_sync : 1;
-  uint8_t Locking_locked : 1;
-  uint8_t Locking_lockingEnabled : 1;
-  uint8_t Locking_lockingSupported : 1;
-  uint8_t Locking_MBRshadowingNotSupported : 1;
-  uint8_t Locking_MBRDone : 1;
-  uint8_t Locking_MBREnabled : 1;
-  uint8_t Locking_mediaEncrypt : 1;
-  uint8_t Geometry_align : 1;
+  uint8_t TPer_ACKNACK;
+  uint8_t TPer_async;
+  uint8_t TPer_bufferMgt;
+  uint8_t TPer_comIDMgt;
+  uint8_t TPer_streaming;
+  uint8_t TPer_sync;
+  uint8_t Locking_locked;
+  uint8_t Locking_lockingEnabled;
+  uint8_t Locking_lockingSupported;
+  uint8_t Locking_MBRshadowingNotSupported;
+  uint8_t Locking_MBRDone;
+  uint8_t Locking_MBREnabled;
+  uint8_t Locking_mediaEncrypt;
+  uint8_t Geometry_align;
   uint64_t Geometry_alignmentGranularity;
   uint32_t Geometry_logicalBlockSize;
   uint64_t Geometry_lowestAlignedLBA;
-  uint8_t Enterprise_rangeCrossing : 1;
+  uint8_t Enterprise_rangeCrossing;
   uint16_t Enterprise_basecomID;
   uint16_t Enterprise_numcomID;
-  uint8_t SingleUser_any : 1;
-  uint8_t SingleUser_all : 1;
-  uint8_t SingleUser_policy : 1;
+  uint8_t SingleUser_any;
+  uint8_t SingleUser_all;
+  uint8_t SingleUser_policy;
   uint32_t SingleUser_lockingObjects;
   uint16_t DataStore_maxTables;
   uint32_t DataStore_maxTableSize;
@@ -582,9 +563,9 @@ typedef struct _DTA_DEVICE_INFO {
   uint8_t RUBY_initialPIN;
   uint8_t RUBY_revertedPIN;
   //
-  uint8_t BlockSID_BlockSIDState : 1;
-  uint8_t BlockSID_SIDvalueState : 1;
-  uint8_t BlockSID_HardReset : 1;
+  uint8_t BlockSID_BlockSIDState;
+  uint8_t BlockSID_SIDvalueState;
+  uint8_t BlockSID_HardReset;
   // FC 403
 
   uint8_t DataRemoval_version;
@@ -604,8 +585,8 @@ typedef struct _DTA_DEVICE_INFO {
   uint16_t DataRemoval_Time_Bit0;
   // NSLocking
   uint8_t NSLocking_version;
-  uint8_t range_C : 1;
-  uint8_t range_P : 1;
+  uint8_t range_C;
+  uint8_t range_P;
   uint32_t Max_Key_Count;
   uint32_t Unused_Key_Count;
   uint32_t Max_Range_Per_NS;
@@ -618,14 +599,14 @@ typedef struct _DTA_DEVICE_INFO {
 
   DTA_DEVICE_TYPE devType;
 
-//  uint8_t serialNum[sizeof_field(IDENTIFY_RESPONSE,serialNumber)];
+//  uint8_t serialNum[sizeof_field(ATA_IDENTIFY_DEVICE_RESPONSE,serialNumber)];
   uint8_t serialNum[40];  // Some synthesized serial numbers (e.g. VMWare) are even bigger
   uint8_t serialNumNull;  // make serialNum a cstring
 
-  uint8_t firmwareRev[sizeof_field(IDENTIFY_RESPONSE,firmwareRevision)];
+  uint8_t firmwareRev[sizeof_field(ATA_IDENTIFY_DEVICE_RESPONSE,firmwareRevision)];
   uint8_t firmwareRevNull;  // make firmware rev a cstring
 
-  uint8_t modelNum[sizeof_field(IDENTIFY_RESPONSE,modelNum)];
+  uint8_t modelNum[sizeof_field(ATA_IDENTIFY_DEVICE_RESPONSE,modelNum)];
   uint8_t modelNumNull;  // make model number a cstring
 
   uint8_t vendorID[8];
@@ -651,7 +632,6 @@ typedef struct _DTA_DEVICE_INFO {
   uint8_t enclosure;
 
 } DTA_DEVICE_INFO;
-
 
 /**  ***WARNING***
  *

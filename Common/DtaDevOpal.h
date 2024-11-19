@@ -18,24 +18,18 @@
 
    * C:E********************************************************************** */
 #pragma once
-class DtaCommand;
-class DtaSession;
 
-#include <functional>
-#include <vector>
-
-#include "DtaDev.h"
-#include "DtaDevOS.h"
 #include "DtaStructures.h"
 #include "DtaLexicon.h"
-#include "DtaResponse.h"   // wouldn't take class
+#include "DtaDev.h"
+
 
 using namespace std;
 /** Common code for OPAL SSCs.
  * most of the code that works for OPAL 2.0 also works for OPAL 1.0
  * that common code is implemented in this class
  */
-class DtaDevOpal : public DtaDevOS {
+class DtaDevOpal : public DtaDev {
 public:
   ~DtaDevOpal();
 
@@ -378,8 +372,8 @@ public:
   uint8_t getMSID(std::string& MSID);
 
   /** Short-circuit routine re-uses initialized drive and disk_info */
-  DtaDevOpal(const char * devref, DtaDevOSDrive * drive, DTA_DEVICE_INFO& di) :
-    DtaDevOS(devref, drive, di)
+  DtaDevOpal(const char * devref, DtaDrive * drive, DTA_DEVICE_INFO& di) :
+    DtaDev(devref, drive, di)
   {};
 
 

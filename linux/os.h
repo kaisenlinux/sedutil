@@ -26,6 +26,8 @@ along with sedutil.  If not, see <http://www.gnu.org/licenses/>.
 #include <assert.h>
 #include "DtaConstants.h"
 #include "log.h"
+#include <arpa/inet.h>
+
 // Why can't I find these??
 #define TRUE 1
 #define FALSE 0
@@ -37,8 +39,6 @@ along with sedutil.  If not, see <http://www.gnu.org/licenses/>.
 
 #define  __unimplemented__ {throw __PRETTY_FUNCTION__;}
 
-typedef int OSDEVICEHANDLE;
-
 
 /** OS specific command to Wait for specified number of milliseconds
  * @param milliseconds  number of milliseconds to wait
@@ -46,3 +46,9 @@ typedef int OSDEVICEHANDLE;
 static inline void osmsSleep(uint32_t milliseconds) {
     (void)usleep(milliseconds * 1000);
 }
+
+typedef void * OSDEVICEHANDLE;
+#define INVALID_HANDLE_VALUE (reinterpret_cast<OSDEVICEHANDLE>( -1 ))
+
+#define handle(descriptor)(reinterpret_cast<OSDEVICEHANDLE>(static_cast<uintptr_t>(descriptor)))
+#define handleDescriptor(handle) (static_cast<int>(static_cast<unsigned int>(reinterpret_cast<uintptr_t>(handle))))

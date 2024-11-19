@@ -41,7 +41,7 @@ uint8_t DtaDevOpal::loadPBA(char * password, char * filename) {
 	uint32_t eofpos;
 	ifstream pbafile;
 
-	if (disk_info.enclosure) {
+	if (device_info.enclosure) {
 		// do not change host property for enclosure
 		adj_host = 0;
 		blockSize = 1950;
@@ -49,7 +49,7 @@ uint8_t DtaDevOpal::loadPBA(char * password, char * filename) {
 	}
 	else
 	if (Tper_sz_MaxComPacketSize > IO_BUFFER_LENGTH_HI) adj_host = 1; else adj_host = 2;
-	if (!disk_info.enclosure) { // only if not enclosure need recovery of property
+	if (!device_info.enclosure) { // only if not enclosure need recovery of property
 		lastRC = properties();
 		if (lastRC != 0) {
 			LOG(E) << "adjust host property fail ; go back to MINIMUM packet size";
@@ -64,7 +64,7 @@ uint8_t DtaDevOpal::loadPBA(char * password, char * filename) {
 	}
 	vector <uint8_t> buffer, lengthtoken; 
 
-	if (!disk_info.enclosure) { // only if not enclosure need packet size change 
+	if (!device_info.enclosure) { // only if not enclosure need packet size change 
 		uint32_t tperMaxPacket = Tper_sz_MaxComPacketSize;
 		uint32_t tperMaxToken = Tper_sz_MaxIndTokenSize;
         

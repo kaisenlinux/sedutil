@@ -9,6 +9,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Linux Files", "Linux Files\
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Old Windows Files", "Old Windows Files\Old Windows Files.vcxproj", "{677B3128-C4C3-4215-920B-B37BEFDCB579}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{DB614EE1-67EB-4C73-B7A0-65797B9B6C1A}"
+	ProjectSection(SolutionItems) = preProject
+		..\GitVersion.ps1 = ..\GitVersion.ps1
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64

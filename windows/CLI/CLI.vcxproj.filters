@@ -81,9 +81,6 @@
     <ClInclude Include="..\..\Common\DtaDevOpal2.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Common\DtaDevOS.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Common\DtaAnnotatedDump.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -91,9 +88,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\DtaDevWindowsDrive.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Common\DtaDevOSDrive.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Common\DtaConstants.h">
@@ -122,6 +116,87 @@
     </ClInclude>
     <ClInclude Include="..\..\Common\SCSICmds_INQUIRY_Definitions.h">
       <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DtaWindows.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\os.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\ATAStructures.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\DtaBlockStorageDevice.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\DtaDrive.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\DtaEndianFixup.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\DtaLexicon.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\DtaNvmeDrive.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\DtaSataDrive.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\DtaScsiDrive.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\NVMeStructures.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DtaWindowsNvmeDrive.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DtaWindowsSataDrive.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DtaWindowsScsiDrive.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\IntelRST.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\nvme.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\nvmeIoctl.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\nvmeReg.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\uuid.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Version.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Customizations.OpenSource\Common\DtaExtensionOptionEnumerations.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\DtaOS.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DtaWindowsBlockStorageDevice.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\DtaAtaDrive.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DtaWindowsAtaDrive.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\DtaJson.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\json_struct.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -176,9 +251,6 @@
     <ClCompile Include="..\..\Customizations.OpenSource\Common\DtaAuthorizeSedutilExecution.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\DtaDevOSFactory.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Common\DtaDevEnterprise.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -194,22 +266,7 @@
     <ClCompile Include="..\..\Common\DtaDevOpal2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Common\DtaDevOS.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Common\DtaAnnotatedDump.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Customizations.OpenSource\Common\DtaDevOpalLoadPBA.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\DtaDevWindowsDrive.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\DtaDevWindowsScsi.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\DtaDevWindowsSata.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Common\ParseDiscovery0Features.cpp">
@@ -219,6 +276,51 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Common\ParseATIdentify.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DtaWindows.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\DtaBlockStorageDevice.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\DtaDrive.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\DtaNvmeDrive.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\DtaSataDrive.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\DtaScsiDrive.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DtaWindowsNvmeDrive.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DtaWindowsSataDrive.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DtaWindowsScsiDrive.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\uuid.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Customizations\Common\DtaDevOpalLoadPBA.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DtaWindowsDriveFactory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DtaWindowsBlockStorageDevice.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\DtaAtaDrive.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DtaWindowsAtaDrive.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -235,5 +337,40 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="..\..\Common\pbkdf2\COPYING" />
+    <None Include="..\GitVersion.ps1">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="..\Package.cmd">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="..\sedutil_baseline">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="..\TestSuite.sh">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="..\..\Customizations.OpenSource\Common\DtaExtensionOptionImplementations.inc">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="..\..\Customizations.OpenSource\Common\DtaExtensionOptions.inc">
+      <Filter>Source Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\..\Common\Copyright.txt">
+      <Filter>Source Files</Filter>
+    </Text>
+    <Text Include="..\..\Common\LICENSE.txt">
+      <Filter>Source Files</Filter>
+    </Text>
+    <Text Include="..\..\Common\ReadMe.txt">
+      <Filter>Source Files</Filter>
+    </Text>
+    <Text Include="..\PSIDRevert_WINDOWS.txt">
+      <Filter>Source Files</Filter>
+    </Text>
+    <Text Include="..\ReadMe_Windows.txt">
+      <Filter>Source Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>

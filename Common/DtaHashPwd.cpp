@@ -19,12 +19,7 @@ along with sedutil.  If not, see <http://www.gnu.org/licenses/>.
  * C:E********************************************************************** */
 
 
-#include "os.h"
 #include <iostream>
-#include <iomanip>
-#include "DtaHashPwd.h"
-#include "DtaLexicon.h"
-#include "DtaOptions.h"
 #include "DtaDev.h"
 #include "log.h"
 
@@ -253,7 +248,7 @@ int Testsedutil(const PBKDF_TestTuple *testSet, unsigned int testSetSize)
     return pass;
 }
 
-int TestPBKDF2()
+uint8_t TestPBKDF2()
 {
     int pass = 1;
     // from draft-ietf-smime-password-03.txt, at http://www.imc.org/draft-ietf-smime-password

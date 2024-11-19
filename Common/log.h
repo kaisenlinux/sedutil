@@ -49,7 +49,8 @@
 typedef enum _sedutiloutput {
     sedutilNormal,
     sedutilReadable,
-    sedutilJSON
+    sedutilJSON,
+    sedutilJSONCompact
 } sedutiloutput;
 
 #define DEFAULT_OUTPUT_FORMAT sedutilReadable
@@ -354,16 +355,18 @@ class FILELOG_DECLSPEC RCLog : public RLog<Output2FILE> {
 #include <cstdlib>
 
 inline std::string NowTime() {
-    const int MAX_LEN = 200;
+    constexpr int MAX_LEN = 200;
     char buffer[MAX_LEN];
     if (GetTimeFormatA(LOCALE_USER_DEFAULT, 0, 0,
-            "HH':'mm':'ss", buffer, MAX_LEN) == 0)
+            "HH':'mm':'ss", &buffer[0], MAX_LEN) == 0)
         return "Error in NowTime()";
 
     char result[100] = {0};
-    static DWORD first = (DWORD)GetTickCount64();
-    sprintf_s(result, 99, "%s.%03ld", buffer, (long) ((DWORD)(GetTickCount64()) - first) % 1000);
-    return result;
+    static DWORD first = static_cast<DWORD>(GetTickCount64());
+    sprintf_s(result, 99, "%s.%03ld",
+              &buffer[0],
+              static_cast<long>(static_cast<DWORD>(GetTickCount64())-first) % 1000);
+    return std::string(&result[0]);
 }
 
 #else
@@ -388,5 +391,12 @@ inline std::string NowTime() {
 
 extern void turnOffLogging(void);
 extern void SetLoggingLevel(int loggingLevel);
+
+
+/** iomanip commands to hexdump a field */
+#include <iomanip>
+#define HEXON(x) "0x" << std::hex << std::setw(x) << std::setfill('0')
+/** iomanip command to return to standard ascii output */
+#define HEXOFF std::dec << std::setw(0) << std::setfill(' ')
 
 #endif //__LOG_H__

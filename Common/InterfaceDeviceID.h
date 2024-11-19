@@ -28,9 +28,20 @@ enum
     INQUIRY_PRODUCT_IDENTIFICATION_Length = 16,
     INQUIRY_PRODUCT_REVISION_LEVEL_Length = 4
 };
-typedef unsigned char InterfaceDeviceID[INQUIRY_VENDOR_IDENTIFICATION_Length +
-INQUIRY_PRODUCT_IDENTIFICATION_Length +
-INQUIRY_PRODUCT_REVISION_LEVEL_Length];
+/*!
+  @enum InterfaceDeviceID size
+  @discussion
+  Sized large enough to hold all the INQUIRY fields aboc
+  @constant InterfaceDeviceID_Length
+  Size of InterfaceDeviceID
+*/
+enum
+{
+    InterfaceDeviceID_Length=INQUIRY_VENDOR_IDENTIFICATION_Length +
+                             INQUIRY_PRODUCT_IDENTIFICATION_Length +
+                             INQUIRY_PRODUCT_REVISION_LEVEL_Length
+};
+typedef unsigned char InterfaceDeviceID[InterfaceDeviceID_Length];
 
 typedef enum TPerOverrideAction {
     // SCSI Pseudodevice hacks
