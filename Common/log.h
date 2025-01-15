@@ -53,6 +53,7 @@ typedef enum _sedutiloutput {
     sedutilJSONCompact
 } sedutiloutput;
 
+// #define DEFAULT_OUTPUT_FORMAT sedutilNormal
 #define DEFAULT_OUTPUT_FORMAT sedutilReadable
 
 /* Default */
