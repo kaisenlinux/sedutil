@@ -1,0 +1,22 @@
+Source: sedutil
+Section: utils
+Priority: optional
+Maintainer: Kevin Chevreuil - Kaisen <kaisen@kaisenlinux.org>
+Rules-Requires-Root: no
+Build-Depends:
+ debhelper-compat (= 13),
+ autotools-dev,
+ dh-autoreconf,
+ libsystemd-dev,
+ libnvme-dev,
+Standards-Version: 4.6.2
+Homepage: https://github.com/Drive-Trust-Alliance/sedutil
+Vcs-Browser: https://gitlab.com/kaisenlinux/packages/sedutil
+Vcs-Git: https://gitlab.com/kaisenlinux/packages/sedutil.git
+
+Package: sedutil
+Architecture: amd64
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+Description: DTA sedutil Self encrypting drive software
